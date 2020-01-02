@@ -1,5 +1,5 @@
-# Docker Hexo
-Docker Image for [Hexo](https://hexo.io/)
+# Docker hexo-cli
+Docker Image for [Hexo](https://hexo.io/) `hexo-cli`.
 
 ## Run:
 
