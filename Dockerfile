@@ -58,6 +58,7 @@ RUN echo "START hexo-node-modules" && \
   hexo init . && \
   # npm install hexo-deployer-git --save && \
   npm install hexo-browsersync --save && \
+  npm install hexo-generator-alias --save && \
   echo "END hexo-node-modules" 
 
 
