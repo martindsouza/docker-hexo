@@ -32,8 +32,9 @@ RUN echo "RUN root" && \
   mkdir ${dir_node_app_root} ${dir_node_app} && \
   chown node:node ${dir_node_app_root} ${dir_node_app} && \
   # For hexo
-  apk update && apk upgrade && \
-  apk add --no-cache git && \
+  apk update && \
+  apk upgrade && \
+  apk add --no-cache git openssh && \
   npm install -g hexo-cli && \
   echo "END root"
 
@@ -54,6 +55,7 @@ WORKDIR ${proj_dummy_dir}
 # Init a dummy project so that we can get the package.json and mode_modules files
 RUN echo "START hexo-node-modules" && \
   hexo init . && \
+  npm install hexo-deployer-git --save && \
   npm install hexo-browsersync --save && \
   echo "END hexo-node-modules" 
 
@@ -73,6 +75,8 @@ WORKDIR ${dir_node_app}
 # 4000: Hexo Draft Server
 # 3000: Browser Synce
 EXPOSE 4000 3000
+
+VOLUME [ "${dir_node_app}", "/home/node"]
 
 ENTRYPOINT [ "hexo" ]
 
