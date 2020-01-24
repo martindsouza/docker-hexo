@@ -23,8 +23,36 @@ Port | Desc
 
 ### MacOS Users
 
+#### `node_modules`
+
 Since Docker for Mac uses a VM behind the scenes, referencing the current directory's `node_modules` folder may be very slow. If that's the case, delete the hosts (i.e. your laptop's) `node_modules` folder and the container has its own copy which will be faster.
 
+#### `git`
+
+I have tried to use the [`hexo-deployer-git`](https://github.com/hexojs/hexo-deployer-git) in the VM but struggled with the container accessing my `~.ssh` folder (from a permissions perspective) to access the private key for Github login. To work around this can manually deploy with following steps:
+
+** Setup ** (do this once)
+
+```bash
+git clone --single-branch --branch gh-pages <git-repo> .deploy_git
+
+# Example
+git clone --single-branch --branch gh-pages git@github.com:martindsouza/talkapex.git .deploy_git
+
+```
+
+** Deploy **
+
+```bash
+hexo clean
+hexo generate
+rm -rf .deploy_git/*
+cp -r public/* .deploy_git/
+cd .deploy_git
+git add *
+git commit -m "Site updated"
+git push
+```
 
 ## Update
 
