@@ -9,10 +9,16 @@ Add the following to create (and persist) alias to `~/.bash_profile` (or `~/.zsh
 alias hexo="docker run -it --rm \
   -v `pwd`:/opt/node_app/app \
   -p 4000:4000 \
+  -p 3000:3000 \
   martindsouza/hexo:latest"
 ```
 
 You can then run all hexo commands as you normally would with the caveat that the container ***can only see the current directory or any of its children***. i.e. don't run commands like `hexo init ../../my-new-blog`
+
+Port | Desc
+--- | ---
+`3000` | Optional: For [`hexo-browsersync`](https://github.com/hexojs/hexo-browsersync) to work
+`4000` | Draft `localhost` port
 
 
 ### MacOS Users

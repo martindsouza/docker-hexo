@@ -54,6 +54,7 @@ WORKDIR ${proj_dummy_dir}
 # Init a dummy project so that we can get the package.json and mode_modules files
 RUN echo "START hexo-node-modules" && \
   hexo init . && \
+  npm install hexo-browsersync --save && \
   echo "END hexo-node-modules" 
 
 
@@ -64,13 +65,14 @@ ARG dir_node_app_root
 ARG dir_node_app
 ARG proj_dummy_dir
 
-# Get the node_moles in into /opt/node_app
+# Get the node_modules in into /opt/node_app
 COPY --from=hexo-proj-init ${proj_dummy_dir}/node_modules ${dir_node_app_root}/node_modules
 
 WORKDIR ${dir_node_app}
 
-# # 4000: Hexo Draft Server
-EXPOSE 4000
+# 4000: Hexo Draft Server
+# 3000: Browser Synce
+EXPOSE 4000 3000
 
 ENTRYPOINT [ "hexo" ]
 
