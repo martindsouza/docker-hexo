@@ -78,7 +78,7 @@ WORKDIR ${dir_node_app}
 # 3000: Browser Synce
 EXPOSE 4000 3000
 
-# VOLUME [ "${dir_node_app}", "/home/node"]
+VOLUME [ "${dir_node_app}"]
 
 ENTRYPOINT [ "hexo" ]
 
